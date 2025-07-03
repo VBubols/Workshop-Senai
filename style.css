@@ -26,6 +26,13 @@ header{
     justify-content: space-around;
 }
 #listaTarefas{
+    display: flex;
+    align-items: center;
     height: 60%;
-    padding: 2rem;
+    width: 100%;
+}
+.tarefas{
+    display: flex;
+    width: 100%;
+    justify-content: center;
 }

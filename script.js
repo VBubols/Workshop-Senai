@@ -19,10 +19,10 @@ function adicionarTarefa(){
             status: "Pendente"
         }
     )
-    console.log("ok")
+
     // mostrarTarefas()
 }
 
 function mostrarTarefas(){
-
+    
 }
