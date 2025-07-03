@@ -24,5 +24,14 @@ function adicionarTarefa(){
 }
 
 function mostrarTarefas(){
-    
+    tarefasPendentes.forEach((tarefa, index) => {
+        let div = document.createElement("div")
+        div.setAttribute("class", "tarefa")
+
+        div.innerHTML = `
+            <input type="checkbox" id="${index}" class="tarefasPendentes">${tarefa.descricao}
+            <button class="excluirTarefa">Excluir</button>`
+
+    })
+    mostrarTarefas()
 }
