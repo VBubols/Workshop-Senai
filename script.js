@@ -4,12 +4,17 @@ let id = 1;
 
 function adicionarTarefa() {
   let tarefa = prompt("Digite sua tarefa");
-  listaTarefas.push({
-    id: id++,
-    descricao: tarefa,
-    checked: false,
-  });
-  mostrarTarefas();
+  if(tarefa.trim() == "" || tarefa === null){
+    alert("Preencha o campo para criar uma tarefa!")
+    return
+  }else{ 
+    listaTarefas.push({
+      id: id++,
+      descricao: tarefa,
+      checked: false,
+    });
+    mostrarTarefas();
+  }
 }
 
 function nenhumaTarefa() {
@@ -24,50 +29,42 @@ function nenhumaTarefa() {
   }
 }
 
-function isCheck(index) {
+function isCheck(id) {
   // 1) Trocar o valor de 'checked'
   // a) Pego o objeto pelo id
   // b) Troca o checked utilizando '!checked'
-  let check = document.getElementById(`${index}`);
+  let check = document.getElementById(`${id}`);
+  let index = listaTarefas.findIndex(tarefa => tarefa.id === id)
   listaTarefas[index].checked = check.checked;
   // c) se for true, foi concluída e inclui nao array de listaTarefasFeitas
   // o método .filter() espera uma função que retorna true ou false. Ele só inclui no novo array os elementos para os quais essa função retorna true.
-  // Quando checked for true, subtraia de tarefas pendentes: tarefas - tarefasFeitas = tarefasPendentes, ou exclui de tarefasPendentes e inclui em tarefasConcluídas
   listaTarefasFeitas = listaTarefas.filter((tarefa) => tarefa.checked);
-  // console.log(document.getElementById(index).parentElement);
-  // trocaClasse(index)
-  let label = check.parentElement;
-  if (check.checked) {
-    // label.classList.add("concluida")
-    label.classList.replace("pendente", "concluida");
-  } else {
-    // label.classList.remove("concluida")
-    label.classList.replace("concluida", "pendente");
-  }
+  check.addEventListener("click", trocaClasse(check));
   check.addEventListener("click", contagemTarefas());
+  
 }
 
-// function trocaClasse() {
-//   let mudarClasse = document.getElementsByClassName(tarefa);
-//   if (listaTarefasFeitas[index].checked == true) {
-//     mudarClasse.classList.replace(tarefaPendente, tarefasFeitas);
-//   } else {
-//     mudarClasse.classList.replace(tarefasFeitas, tarefaPendente);
-//   }
-// }
+function trocaClasse(check) {
+  let label = check.parentElement;
+   if (check.checked) {
+    label.classList.replace("pendente", "concluida");
+  } else {
+    label.classList.replace("concluida", "pendente");
+  }
+}
 
 function mostrarTarefas() {
   tarefas.innerHTML = "";
 
-  listaTarefas.forEach((tarefa, index) => {
+  listaTarefas.forEach((tarefa) => {
     let div = document.createElement("div");
     div.setAttribute("class", "tarefas");
 
     div.innerHTML = `
-    <label for="${index}" class="pendente"><input type="checkbox" id="${index}" ${
+    <label for="${tarefa.id}" class="pendente"><input type="checkbox" id="${tarefa.id}" ${
       tarefa.checked ? "checked" : ""
-    } onclick="isCheck(${index})">${tarefa.descricao}</label>
-    <button class="btExcluirTarefa" onclick="excluirTarefa(${index})">Excluir</button>`;
+    } onclick="isCheck(${tarefa.id})">${tarefa.descricao}</label>
+    <button class="btExcluirTarefa" onclick="excluirTarefa(${tarefa.id})">Excluir</button>`;
     tarefas.appendChild(div);
   });
   contagemTarefas();
@@ -88,14 +85,14 @@ function contagemTarefas() {
   statusTarefa.appendChild(tarefasFeitas);
 }
 
-function excluirTarefa(index) {
-  let idParaRemover = `${index}`;
-  isCheck(index);
-  if (listaTarefas[index].checked == true) {
-    listaTarefasFeitas.splice(idParaRemover, 1);
-    listaTarefas.splice(idParaRemover, 1);
-  } else {
-    listaTarefas.splice(idParaRemover, 1);
+function excluirTarefa(id) {
+  let indexTarefa = listaTarefas.findIndex(tarefa => tarefa.id === id)
+  let tarefaRemovida = listaTarefas[indexTarefa]
+  listaTarefas.splice(indexTarefa, 1)
+
+  if (tarefaRemovida.checked) {
+    let indexTarefaFeita = listaTarefasFeitas.findIndex(tarefa => tarefa.id ===id)
+    listaTarefasFeitas.splice(indexTarefaFeita, 1)
   }
   contagemTarefas();
   nenhumaTarefa();
