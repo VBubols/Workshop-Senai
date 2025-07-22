@@ -1,9 +1,4 @@
-let template = [
-    {
-    "description": "Descricao padrao",
-    "status": "to-do"
-    }
-]      
+let template = []      
 
 function printar(){
     let container = document.getElementById("container")
@@ -48,11 +43,11 @@ function check(index){
     let task_done = document.getElementById(index)
     let checkbox = document.querySelector('input[type="checkbox"]')
 
-    if(checkbox.checked){
-        task_done.style.backgroundColor = "red";  
-    } else{
-        task_done.style.backgroundColor = "#aaaaaa";
+    if (checkbox.checked) {
+        task_done.style.backgroundColor = "rgba(72, 201, 176, 0.3)"
+        task_done.style.textDecoration = "line-through" 
+    } else {
+        task_done.style.backgroundColor = "rgba(255, 255, 255, 0.15)"
+        task_done.style.textDecoration = "none" 
     }
 }
-
-printar()
