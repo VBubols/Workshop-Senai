@@ -1,9 +1,8 @@
-let template = []     
+let template = []      
 
-function printar(){
+function printar() {
     let container = document.getElementById("container")
-
-    container.innerHTML = ""
+    container.innerHTML = "<h1>To-Do List</h1>"
 
     template.forEach((task, index) => {
         let task_list = document.createElement("div")
@@ -18,72 +17,37 @@ function printar(){
 
         container.appendChild(task_list)
     })
-
-    count()
 }
 
-function create(){
+function create() {
     let new_template = {
         "description": "",
         "status": "to-do"
     }
 
-    let new_description = document.getElementById("description").value
-
-    if(new_description == ""){
-        alert("Não é possível inserir uma tarefa vazia.")
-    } else {
-        new_template.description = new_description
+    let new_description = prompt("Digite a descrição: ")
+    if (new_description && new_description.trim() !== "") {
+        new_template.description = new_description.trim()
         template.push(new_template)
         printar()
     }
 }
 
-function delete_task(index){
+function delete_task(index) {
     template.splice(index, 1)
     printar()
 }
 
-function check(index){
+function check(index) {
     let task_done = document.getElementById(index)
-    let checkbox = document.querySelector('input[type="checkbox"]')
+    let checkbox = task_done.querySelector('input[type="checkbox"]')
+    let description = task_done.querySelector('p')
 
     if (checkbox.checked) {
         task_done.style.backgroundColor = "rgba(72, 201, 176, 0.3)"
-        task_done.style.textDecoration = "line-through" 
+        description.style.textDecoration = "line-through" 
     } else {
         task_done.style.backgroundColor = "rgba(255, 255, 255, 0.15)"
-        task_done.style.textDecoration = "none" 
+        description.style.textDecoration = "none" 
     }
-    count()
-}
-
-function count(){
-    let done = 0
-
-    if(template.status == "done"){
-        
-        console.log("passou aqui")
-    } else{
-        console.log("passou no else")
-    }
-
-    let counter = document.getElementById("counter")
-    counter.textContent = `Tarefas feitas: ${done}/${template.length}`
-
-}
-
-function count(){
-    let done = 0
-
-    if(template.status == "done"){
-        
-        console.log("passou aqui")
-    } else{
-        console.log("passou no else")
-    }
-
-    let counter = document.getElementById("counter")
-    counter.textContent = `Tarefas feitas: ${done}/${template.length}`
-
 }
