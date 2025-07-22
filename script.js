@@ -26,16 +26,20 @@ function create() {
     }
 
     let new_description = prompt("Digite a descrição: ")
-    if (new_description && new_description.trim() !== "") {
-        new_template.description = new_description.trim()
+    if (new_description !== "") {
+        new_template.description = new_description
         template.push(new_template)
         printar()
+        count()
+    } else {
+        alert("Não é possível criar uma tarefa vazia.")
     }
 }
 
 function delete_task(index) {
     template.splice(index, 1)
     printar()
+    count()
 }
 
 function check(index) {
@@ -50,4 +54,17 @@ function check(index) {
         task_done.style.backgroundColor = "rgba(255, 255, 255, 0.15)"
         description.style.textDecoration = "none" 
     }
+    count()
+}
+
+function count(){
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]')
+    let done = 0
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) done++
+    })
+
+    let counter = document.getElementById('task_count')
+    counter.innerHTML = `Tarefas feitas: ${done} / ${template.length}`
 }
