@@ -56,7 +56,6 @@ a:hover {
     color: #fff;
     border: none;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .boa_vinda > button:hover {
@@ -65,7 +64,7 @@ a:hover {
 
 .container {
     width: 90%;
-    max-width: 600px;
+    max-width: 700px;
     background-color: rgba(255, 255, 255, 0.05);
     padding: 20px;
     border-radius: 16px;
@@ -88,7 +87,6 @@ a:hover {
     padding: 10px 15px;
     margin: 10px 0;
     color: white;
-    transition: background 0.3s ease;
 }
 
 .task p {
@@ -104,7 +102,6 @@ a:hover {
     padding: 8px 12px;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease;
 }
 
 .task input[type="button"]:hover {
