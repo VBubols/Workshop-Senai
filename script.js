@@ -1,8 +1,9 @@
-let template = []      
+let template = []     
 
 function printar(){
     let container = document.getElementById("container")
-    container.innerHTML = "<h1>To-Do List</h1>"
+
+    container.innerHTML = ""
 
     template.forEach((task, index) => {
         let task_list = document.createElement("div")
@@ -18,7 +19,7 @@ function printar(){
         container.appendChild(task_list)
     })
 
-    console.log(template)
+    count()
 }
 
 function create(){
@@ -27,16 +28,20 @@ function create(){
         "status": "to-do"
     }
 
-    let new_description = prompt("Digite a descrição: ")
-    new_template.description = new_description
-    template.push(new_template)
-    printar()
+    let new_description = document.getElementById("description").value
+
+    if(new_description == ""){
+        alert("Não é possível inserir uma tarefa vazia.")
+    } else {
+        new_template.description = new_description
+        template.push(new_template)
+        printar()
+    }
 }
 
 function delete_task(index){
     template.splice(index, 1)
     printar()
-
 }
 
 function check(index){
@@ -50,4 +55,35 @@ function check(index){
         task_done.style.backgroundColor = "rgba(255, 255, 255, 0.15)"
         task_done.style.textDecoration = "none" 
     }
+    count()
+}
+
+function count(){
+    let done = 0
+
+    if(template.status == "done"){
+        
+        console.log("passou aqui")
+    } else{
+        console.log("passou no else")
+    }
+
+    let counter = document.getElementById("counter")
+    counter.textContent = `Tarefas feitas: ${done}/${template.length}`
+
+}
+
+function count(){
+    let done = 0
+
+    if(template.status == "done"){
+        
+        console.log("passou aqui")
+    } else{
+        console.log("passou no else")
+    }
+
+    let counter = document.getElementById("counter")
+    counter.textContent = `Tarefas feitas: ${done}/${template.length}`
+
 }
